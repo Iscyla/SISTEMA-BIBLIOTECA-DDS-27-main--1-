@@ -2,6 +2,9 @@
 const express = require("express")
 const app = express()
 
+// IMPORTAR O MÓDULO DO DOTENV, LÊ O ARQUIVO .EV E JÁ CONFIGURA O BANCO
+require('dotenv').config()
+
 // DEFINE A PORTA DO SERVIDOR 
 const port = process.env.PORT || 5000
 

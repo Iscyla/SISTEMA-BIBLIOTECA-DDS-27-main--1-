@@ -16,3 +16,6 @@ const pool = mysql.createPool(
         queueLimit: 0 // 0 = ILIMITADO
     }
 )
+
+// EXPORTAÇÃO DA POOL
+module.exports = pool
