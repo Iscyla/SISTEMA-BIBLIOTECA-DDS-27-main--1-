@@ -1,21 +1,50 @@
 // IMPORTAÇÃO DO MÓDULO DO EXPRESS
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
+
+//MÓDULO DO NODE PARA LIDAR COM CAMINHO DE ARQUIVOS
+const path = require("path");
 
 // IMPORTAR O MÓDULO DO DOTENV, LÊ O ARQUIVO .EV E JÁ CONFIGURA O BANCO
-require('dotenv').config()
+require("dotenv").config();
 
-// DEFINE A PORTA DO SERVIDOR 
-const port = process.env.PORT || 5000
+// DEFINE A PORTA DO SERVIDOR
+const port = process.env.PORT || 5000;
+
+//CONFIGURAR O EJS COM TEMPLATE ENGINE
+//DEFINE O EJS COMO ENFINE DO FRONT - INTERPRETA AS PÁGINAS
+app.set("view engine", "ejs");
+//APONTAR PARA O EJS ONDE ESTÃO AS PÁGINAS
+app.set("views", path.join(__dirname, "../client/views"));
 
 // CRIAÇÃO DAS ROTAS
 // ROTAS PÚBLICAS
 app.get("/", (req, res) => {
-    res.send("Parabéns, você conseguiu")
-})
+  res.render("index");
+});
 
-// FUNÇÃO PARA SUBIR O SERVIDOR
-app.listen(port, () =>{
-    console.log(`Servidor na porta: ${port}`);
-    console.log(`Link: http://localhost:${port}`);
-})
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+//TRAZ AS CONFIGURAÇÕES DO BANCO
+const pool = require("./config/db.js");
+
+// FORÇA A CONEXÃO COM O BANCO
+(async () => {
+  try {
+    //SE O BANCO ESTIVER ATIVO, INICIA O SERVIDOR DO BANCO
+    await pool.getConnection();
+    console.log("Banco foi conectado");
+    //SE O BANCO SUBIU, SOBE O BACKEND
+    // FUNÇÃO PARA SUBIR O SERVIDOR
+    app.listen(port, () => {
+      console.log(`Servidor na porta: ${port}`);
+      console.log(`Link: http://localhost:${port}`);
+    });
+  } catch (erro) {
+    //SE DEU ERRO, AVISA E ENCERRA A TENTATIVA
+    console.log("Erro ao conectar com o banco");
+    process.exit(1);
+  }
+})();

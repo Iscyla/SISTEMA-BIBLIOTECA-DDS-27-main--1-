@@ -1,5 +1,5 @@
 // IMPORTANDO O MÓDULO DO MYSQL PARA CONECTAR AO BANCO
-const mysql = require("mysql12/promise")
+const mysql = require("mysql2/promise")
 
 // CRIA UMA POOL DE CONEXÃO, PARA EVITAR ERROS NO BANCO POR SUPERLOTAÇÃO
 const pool = mysql.createPool(

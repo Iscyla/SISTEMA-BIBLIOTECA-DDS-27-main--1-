@@ -7,6 +7,13 @@ CREATE DATABASE db_biblioteca;
 USE db_biblioteca;
 
 -- CRIAR AS TABELAS
+CREATE TABLE tb_usuarios(
+	id_leitor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+    email VARCHAR(45),
+    senha VARCHAR(15),
+    perfil VARCHAR(10)
+);
 
 -- TABELA LEITOR
 CREATE TABLE tb_leitores(
