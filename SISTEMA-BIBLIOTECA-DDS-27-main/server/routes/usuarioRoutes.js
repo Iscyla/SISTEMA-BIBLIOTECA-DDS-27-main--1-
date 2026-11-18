@@ -11,7 +11,7 @@ router.get("/login", usuarioController.login)
 
 //CRUD
 //MOSTRA A PÁGINA DE CRIAR USUÁRIO
-router.get("/cadastro", (req,res) => {
+router.get("/cadastrar", (req,res) => {
     res.render("usuarios/cadastrar");
 })
 
