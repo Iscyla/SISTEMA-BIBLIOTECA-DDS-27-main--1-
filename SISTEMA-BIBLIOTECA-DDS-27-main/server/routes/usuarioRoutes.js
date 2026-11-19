@@ -15,16 +15,18 @@ router.get("/cadastrar", (req,res) => {
     res.render("usuarios/cadastrar");
 })
 
-//MOSTRA A PÁGINA DE LISTAR USUÁRIO
-router.get("/listar", (req, res) => {
-    res.render("usuarios/listar");
-})
+// MANDAR AS INFORMAÇÕES DE CADASTRO DO CONTROLLER
+router.post("/cadastrar", usuarioController.criar)
 
 //MOSTRA A PÁGINA DE EDITAR USUÁRIO
 router.get("/editar", (req, res) => {
     res.render("usuarios/editar");
 })
 
+//MOSTRA A PÁGINA DE LISTAR USUÁRIO
+router.get("/listar", usuarioController.listar)
+
+router.get("/", usuarioController.listar)
 
 //EXPORTA O ROUTER
 module.exports = router

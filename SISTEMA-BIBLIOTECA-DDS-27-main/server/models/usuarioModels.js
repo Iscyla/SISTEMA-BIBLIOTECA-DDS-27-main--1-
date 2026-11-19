@@ -9,12 +9,27 @@ module.exports = {
     },
     // CRUD
     // CREATE
-    criarUsuario: () => {
-        console.log("Ta criado o usuário!");
+    criarUsuario: async (nome, email, senha, perfil) => {
+        // VARIÁVEL PARA GUARDAR O COMANDO SQL
+        const sql = `INSERT INTO tb_usuarios(nome, email, senha, perfil)
+                     VALUES (?,?,?,?)`
+        // EXECUTA O SQL
+        const [resultado] = await db.execute(sql, [nome, email, senha, perfil])
+
+        // RETORNA PRO CONTROLLER O RESULTADO
+        return resultado.insertId
+
     },
     //READ
-    listarUsuarios: () => {
-        console.log("Toma os usuários");
+    listarUsuarios: async () => {
+        // VARIÁVEL PRA GUARDAR O COMANDO SQL
+        const sql = `SELECT * FROM tb_usuarios`
+
+        // EXECUTA O SQL
+        const[linhas] = await db.execute(sql)
+
+        // RETORNA PRO CONTROLLER O RESULTADO
+        return linhas
     },
     // UPDATE
     atualizarUsuario: () => {

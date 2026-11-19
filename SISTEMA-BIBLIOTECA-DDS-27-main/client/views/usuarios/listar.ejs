@@ -1,9 +1,51 @@
 <!-- Importação do Header -->
-<%- include('partials/header') %>
+<%- include('../partials/header') %>
 
-<body style="background-color: cadetblue">
-  <h1 style="color: darkblue">Estou na página de listar um usuário</h1>
-</body>
+<main class="container my-2 flex-grow-1">
+  <h1 class="text-center">Estou na página de listar usuários</h1>
+
+  <!-- Botão para a página de cadastro -->
+  <a href="/usuarios/cadastrar">
+    <button class="btn-solid theme-danger">+ Novo usuário</button>
+  </a>
+
+  <!-- Tabela com os dados do usuários -->
+   <table class="table mt-5 table-bordered border-danger">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Senha</th>
+        <th scope="col">Perfil</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Laço de repetição para interagir com a lista vindo do backend -->
+       <% listaUsuarios.forEach(user => { %>
+        <!-- listaUsuarios - lista vinda do banco -->
+        <!-- user - cada indice da lista "listaUsuarios" -->
+         <tr>
+          <td> <%= user.id_usuario %> </td>
+          <td> <%= user.nome %> </td>
+          <td> <%= user.email %> </td>
+          <td> <%= user.senha %> </td>
+          <td> <%= user.perfil %> </td>
+          <!-- Botões de ações -->
+          <td>
+            <!-- Botão de editar -->
+             <a href="usuarios/editar/<%= user.id_usuario %>"> <button class="btn-solid theme-danger"> Editar </button> </a>
+             <!-- Botão de excluir -->
+          </td>
+         </tr>
+       <% }) %>
+      
+    </tbody>
+
+   </table>
+</main>
 
 <!-- Importação do Footer -->
-<%- include('partials/footer') %>
+<%- include('../partials/footer') %>

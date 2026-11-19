@@ -1,0 +1,63 @@
+<!-- Importação do Header -->
+<%- include('../partials/header') %>
+
+<main class="container my-2 flex-grow-1">
+  <h1 class="fg-accent fs-6x1">Estou na pagina de cadastrar livros</h1>
+
+  <!-- Criar o formulário de cadastro -->
+  <div class="d-flex flex-column">
+    <!-- action - Fala a rota que o botão vai enviar as informações -->
+    <form action="/usuarios/cadastrar" method="post">
+      <!-- Caixinha de Nome -->
+      <div class="form-group">
+        <label for="titulo"> Titulo: </label>
+        <input
+          type="title"
+          name="titulo"
+          id="titulo"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <!-- Caixinha de Email -->
+      <div class="form-group">
+        <label for="ano_publicação"> Ano de publicação: </label>
+        <input
+          type="ano_publicação"
+          name="ano_publicação"
+          id="ano_publicação"
+          required
+          class="form-control"
+        />
+      </div>
+
+      <!-- Caixinha de Senha -->
+      <div class="form-group">
+        <label for="genero"> Visibilidade no Sistema: </label>
+        <select name="genero" id="genero" class="form-control">
+          <option value="aventura">Aventura</option>
+          <option value="drama">Drama</option>
+          <option value="romance">Romance</option>
+        </select>
+      </div>
+      </div>
+
+      <!-- Caixinha de Perfil -->
+      <div class="form-group">
+        <label for="esta_disponivel"> Visibilidade no Sistema: </label>
+        <select name="esta_disponivel" id="esta_disponivel" class="form-control">
+          <option value="ativo">Ativo</option>
+          <option value="desativado">Desativado</option>
+        </select>
+      </div>
+
+      <!-- Botão de envio -->
+      <button type="submit" class="btn-subtle theme-succes mt-3">
+        Cadastrar
+      </button>
+    </form>
+  </div>
+</main>
+<!-- Importação do Footer -->
+<%- include('../partials/footer') %>
