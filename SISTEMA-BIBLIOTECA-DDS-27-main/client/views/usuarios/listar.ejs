@@ -34,10 +34,11 @@
           <td> <%= user.senha %> </td>
           <td> <%= user.perfil %> </td>
           <!-- Botões de ações -->
-          <td>
+          <td class="d-flex justify-content-center gap-3">
             <!-- Botão de editar -->
              <a href="usuarios/editar/<%= user.id_usuario %>"> <button class="btn-solid theme-danger"> Editar </button> </a>
              <!-- Botão de excluir -->
+              <form action="usuarios/deletar/<%= user.id_usuario %>" method="post" onsubmit="return confirm(`Deseja realmente excluir esse usuário?`)"><button type="submit" class="btn-solid theme-danger"> Excluir </button></form>
           </td>
          </tr>
        <% }) %>

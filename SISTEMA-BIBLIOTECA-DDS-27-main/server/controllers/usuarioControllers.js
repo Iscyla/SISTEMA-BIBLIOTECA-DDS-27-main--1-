@@ -5,12 +5,39 @@ const { listar } = require("./livrosControllers.js");
 // EXPORTAR AS FUNÇÕES DO CONTROLLER
 module.exports = {
   // LOGIN
-  login: (req, res) => {
-    // EXECUTAR A FUNÇÃO DO MODEL
-    usuarioModels.login();
+  login: async (req, res) => {
+    try{
+      // Coleta as informações do body de requisição
+      const{email, senha} = req.body
 
-    // DIZ A RESPOSTA
-    res.send("Vou chamar o model para logar");
+      // Passa as informações pro model
+      const usuarioLogado = await usuarioModels.login(email, senha)
+
+      // Se não tiver usuário, já retorna a página de erro
+      if(!usuarioLogado){
+        return red.render ("erro", {erro, mensagem: "Credenciais inválidas"})
+      }
+
+      // Guardao usuário na sessão
+      req.session.usuario = usuarioLogado
+
+      // Ativa a função de salvar e garante que terá uma session
+      req.session.save( (erro) => {
+        // Se deu erro ao salvar informa
+        if(erro){
+          return res.render("erro", {erro, mensagem: "Erro ao criar sessão"})
+        }
+
+        // Se deu certo redireciona
+        return res.redirect("/usuarios")
+      })
+    }
+    catch (erro) {
+      // Mostra o erro no terminal
+      console.log(erro)
+      // Renderiza a página do erro, mostrando pro usuário uma mensagem 
+      res.render("erro", {erro, mensagem: "Erro ao logar"})
+    }
   },
   // CRUD
   // CREATE
@@ -52,8 +79,18 @@ module.exports = {
   },
 
   //DELETE
-  deletar: (req, res) => {
-    usuarioModels.deletarUsuarior();
-    res.send("Deletado o usuário ai");
+  deletar: async (req, res) => {
+    try{
+      //Pegar o ID, vinso da url, através dos parâmetros
+      const idDaUrl = req.params.id
+      // Manda pro model o ID para ele fazer o serviço
+      await usuarioModels.deletarUsuario(idDaUrl)
+      // Redireciona para a lista de usuários
+      res.redirect("/usuarios")
+    }
+    catch{
+      console.log(erro);
+      res.render("erro", {erro, mensagem:"Erro ao deletar o usuário"})
+    }
   },
 };

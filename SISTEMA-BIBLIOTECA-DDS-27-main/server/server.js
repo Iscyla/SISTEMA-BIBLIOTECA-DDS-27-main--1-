@@ -22,6 +22,21 @@ app.set("views", path.join(__dirname, "../client/views"));
 app.use(express.json())
 app.use(express.urlencoded({extends:true}))
 
+// CONFIGURAÇÃO DO EXPRESS-SESSION
+const session = require("express-session")
+app.use(session({
+  secret: 'cr7',
+  resave: false,
+  saveUninitialized: false
+}))
+
+// DISPONIBILIZA O USUÁRIO DA SESSÃO PARA O EJS USAR
+app.use((req, res, next) =>{
+  res.locals.usuario = req.session?.usuario || null;
+  req.usuario = req.session?.usuario || null;
+  next();
+})
+
 // CRIAÇÃO DAS ROTAS
 // IMPORTAR AS ROTAS DE USUÁRIOS
 const usuarioRoutes = require("./routes/usuarioRoutes.js")
@@ -34,7 +49,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("login");
+  // Destruir a sessão ativa
+  if (req.session.usuario){
+    req.session.destroy()
+  }
 });
 
 //TRAZ AS CONFIGURAÇÕES DO BANCO

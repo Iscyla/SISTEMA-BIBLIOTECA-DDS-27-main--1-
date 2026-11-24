@@ -59,6 +59,13 @@
                   <a class="nav-link" href="/emprestimos">Empréstimos</a>
                 </li>
               </ul>
+              <!-- Condição se tiver m usuário logado -->
+               <% if (usuario) { %>
+                <!-- Mostra o nome -->
+                 <b><%= usuarip.nome %></b>
+                 <!-- Botão de logout -->
+                  <a href="/login"><button class="btn-solid theme-danger">Logout</button></a>
+                 <% } %>
             </div>
           </dialog>
         </div>
